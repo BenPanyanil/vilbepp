@@ -1,28 +1,62 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<div id="app">
+		<nav-bar :openCreatePost.sync="openCreatePost"></nav-bar>
+		<poster-board :data="dataInverted"></poster-board>
+		<create-post-modal 
+			v-if="openCreatePost" 
+			:openCreatePost.sync="openCreatePost"
+			:data.sync="data">
+		</create-post-modal>
+	</div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PosterBoard from './components/PosterBoard.vue'
+import NavBar from './components/NavBar.vue'
+import axios from "axios"
+import CreatePostModal from './components/create-post-components/CreatePostModal.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+	name: 'App',
+	components: {
+		NavBar,
+		PosterBoard,
+		CreatePostModal
+	},
+	data: function () {
+		return {
+			data: [],
+			openCreatePost: false,
+		}
+	},
+	computed: {
+		dataInverted: function () {
+			const reversed = this.data.slice().reverse()
+			return reversed
+		}
+	},
+	mounted: async function () {
+		await this.fetchData()
+	},
+	methods: {
+		fetchData: async function () {
+			await axios
+				.get('http://localhost:3001/posts')
+				.then(response => {
+					this.data = response.data
+			})
+		}
+	}
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+	* {
+		font-family: 'Poppins', sans-serif;
+		color: #444444;
+		box-sizing: border-box;
+	}
+	body {
+		margin: 0;
+		background: #efefef;
+	}
 </style>

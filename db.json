@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "user": {
+        "name": "Ben"
+      },
+      "postContent": {
+        "title": "Moi tulkaa kahville",
+        "description": "Kahville kahville kahville",
+        "imageURL": ""
+      },
+      "id": 2
+    },
+    {
+      "user": {
+        "name": "Ben"
+      },
+      "postContent": {
+        "title": "Nyt kaikki ulos!!!",
+        "description": "Torilla tavatann",
+        "imageURL": ""
+      },
+      "id": 3
+    }
+  ]
+}
